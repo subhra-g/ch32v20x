@@ -79,7 +79,7 @@ target_include_directories(${lib}
 	PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc>
 	$<INSTALL_INTERFACE:include/>
-	# TODO: "debug.c/h" directly incldes somefile from SDK. Following is WORKAROUND just for that.
+	# TODO: "debug.c/h" directly includes somefile from SDK. Following is WORKAROUND just for that.
 	$<INSTALL_INTERFACE:include/ch32v20x/peripheral>
 )
 
