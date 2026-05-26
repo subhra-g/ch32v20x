@@ -43,7 +43,11 @@ project("ch32v20xhal" VERSION 2.2.0 # The version is from ch32v20x.h
 # ToDo: Following way of setting MCU specific option doesn't make sense when it is consumed using FetchContent.
 #       But it is required when built as package (to be consumed by  find_package).
 #       How to satisfy both use case?
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${MCU}.cmake)
+if(PROJECT_IS_TOP_LEVEL)
+	# ToDo: Need to accomodate other supported MCUs by this SDK.
+	include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${MCU}.cmake)
+endif()
+
 #set(sdk_path "${CMAKE_CURRENT_SOURCE_DIR}/SRC")
 
 message(VERBOSE "Building ${PROJECT_NAME} for ${MCU}")

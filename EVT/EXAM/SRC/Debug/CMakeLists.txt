@@ -54,7 +54,7 @@ foreach(uart compile_opt IN ZIP_LISTS uart_options compile_options)
 	)
 
 	# set the target's folder (for IDEs that support it, e.g. Visual Studio)
-	set_target_properties(${lib} PROPERTIES FOLDER "${PROJECT_NAME}")
+	set_target_properties(${lib} PROPERTIES FOLDER "${PROJECT_NAME}/Debug")
 	add_library(ch32v20x::${lib} ALIAS ${lib})
 
 	message(DEBUG "Created target: ch32v20x::${lib} (${lib})")
