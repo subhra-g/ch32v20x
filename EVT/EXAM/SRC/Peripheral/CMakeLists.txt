@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.23)
 
-set(lib hal.peripheral)
+set(lib peripheral)
 
 add_library(${lib} STATIC)
 
@@ -29,7 +29,7 @@ target_sources(${lib}
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc/ch32v20x_usart.h>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc/ch32v20x_usb.h>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/inc/ch32v20x_wwdg.h>
-	#
+	# Install location for following files needs to be in include/Peripheral
 	$<INSTALL_INTERFACE:include/ch32v20x/peripheral/ch32v20x.h>
 	$<INSTALL_INTERFACE:include/ch32v20x/peripheral/ch32v20x_adc.h>
 	$<INSTALL_INTERFACE:include/ch32v20x/peripheral/ch32v20x_bkp.h>
@@ -82,28 +82,17 @@ target_include_directories(${lib}
 	# TODO: "debug.c/h" directly includes somefile from SDK. Following is WORKAROUND just for that.
 	$<INSTALL_INTERFACE:include/ch32v20x/peripheral>
 )
-
 # Processor Arch related
 target_compile_options(${lib} PUBLIC -msave-restore)
-
 # Optimization. Intentionally kept private.
 target_compile_options(${lib} PRIVATE -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common)
 target_compile_options(${lib} PRIVATE -msmall-data-limit=8)
+# Debugging and Optimization
 # target_compile_options(${lib_name} PRIVATE -Os)
-
-# Debugging
 # target_compile_options(${lib_name} PRIVATE $<$<CONFIG:Debug>:-g>)
-
 # Linker
 target_link_options(${lib} PUBLIC -msave-restore)
-target_link_libraries(${lib}
-	PUBLIC
-	$<BUILD_INTERFACE:ch32v20x_config>
-	$<BUILD_INTERFACE:hal::core>
-	$<INSTALL_INTERFACE:hal.core>
-)
+target_link_libraries(${lib} PUBLIC ch32v20x::core)
 
-# set the target's folder (for IDEs that support it, e.g. Visual Studio)
 set_target_properties(${lib} PROPERTIES FOLDER "${PROJECT_NAME}")
-
-add_library(hal::peripheral ALIAS ${lib})
+add_library(ch32v20x::peripheral ALIAS ${lib})

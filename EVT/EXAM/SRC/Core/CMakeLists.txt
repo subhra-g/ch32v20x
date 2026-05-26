@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.23)
 
-set(lib hal.core)
+set(lib core)
 
 add_library(${lib} STATIC)
 
 target_sources(${lib}
 	PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/core_riscv.h>
-	$<INSTALL_INTERFACE:include/ch32v20x/core/core_riscv.h>
+	$<INSTALL_INTERFACE:include/ch32v20x/core/core_riscv.h> # This file needs to be installed in include/core.
 	PRIVATE
 	"${CMAKE_CURRENT_SOURCE_DIR}/core_riscv.c"
 )
@@ -26,15 +26,20 @@ target_compile_options(${lib} PUBLIC -msave-restore) # -mno-save-restore
 # Optimization. Intentionally kept private.
 target_compile_options(${lib} PRIVATE -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common)
 target_compile_options(${lib} PRIVATE -msmall-data-limit=8)
-# target_compile_options(${lib} PRIVATE -Os)
 
-# Debugging
+# Debugging and optimization
+# target_compile_options(${lib} PRIVATE -Os)
 # target_compile_options(${lib} PRIVATE $<$<CONFIG:Debug>:-g>)
 
 # Linker options
 target_link_options(${lib} PUBLIC -msave-restore)
 
+target_link_directories(${lib}
+	INTERFACE
+	$<INSTALL_INTERFACE:lib/ch32v20x>
+)
+
 # set the target's folder (for IDEs that support it, e.g. Visual Studio)
 set_target_properties(${lib} PROPERTIES FOLDER "${PROJECT_NAME}")
 
-add_library(hal::core ALIAS ${lib})
+add_library(ch32v20x::core ALIAS ${lib})
