@@ -4,7 +4,7 @@ EN | [中文](README_zh.md)
 
 
 ### Overview
-The CH32V203 is an industrial-grade enhanced low-power general-purpose MCU based on 32-bit RISC-V core. The CH32V203 features high performance, and supports up to 144MHz system clock frequency. The operating power consumption can be as low as 45uA/MHz. CH32V203 integrates 2-channel USB interface which supports USB Host and USB Device functions. The CH32V203 provides 1-channel CAN interface (2.0B active), 2-channel OPA, 4 UARTs, 2 IICs, 12-bit ADC, 10-channel TouchKey and other peripheral resources. Several packages such as TSSOP20, QFN28 QFN48, LQFP32 and LQFP48 are available for users.
+The CH32V203 is an industrial-grade enhanced low-power general-purpose microcontroller designed based on a 32-bit RISC-V core, featuring the Qingke V4B core with significantly reduced power consumption in both active and sleep modes per MHz. It supports high-performance zero-wait operation at a 144MHz clock speed, delivering a far superior performance-to-power ratio compared to traditional MCUs. The CH32V203 series integrates dual USB interfaces, enabling both USB Host and USB Device functionalities, along with a CAN interface (2.0B active), dual OPA amplifiers, four USARTs, dual I2C, a 12-bit ADC, and 10 touch keys, among other abundant peripheral resources.
 
 ### System Block Diagram
 <img src="image/frame2.jpg" alt="frame2" style="zoom:50%;" />
@@ -15,8 +15,8 @@ The CH32V203 is an industrial-grade enhanced low-power general-purpose MCU based
 - 20KB SRAM, 64KB Flash;
 - Supply voltage: 2.5V/3.3V. GPIO unit is supplied independently;
 - Low-power modes: sleep/stop/standby;
-- Down to 44.65uA/MHz in Run mode;
-- Down to 17.90uA/MHz in Sleep mode;
+- Down to 52uA/MHz in Run mode;
+- Down to 0.5uA/MHz in Standby mode;
 - Power-on/power-down reset (POR/PDR), programmable voltage detector (PVD);
 - 1 x 18-channel general DMA controllers
 - 2 amplifiers;
@@ -30,7 +30,7 @@ The CH32V203 is an industrial-grade enhanced low-power general-purpose MCU based
 - 37 I/O ports, can be mapped to 16 external interrupts;
 - CRC calculation unit, 96-bit unique ID;
 - Serial 2-wire debug interface;
-- Packages: TSSOP20, QFN28, QFN48, LQFP32, LQFP48;
+- Packages: TSSOP20, QFN20, QFN28, QSOP28, QFN32, LQFP32, QFN48X7, LQFP48, LQFP64M
 
 # 32-bit Wireless RISC-V MCU – CH32V208
 
@@ -45,7 +45,7 @@ The CH32V208 is a wireless MCU based on 32-bit RISC-V core, with hardware stack 
 - Qingke V4C processor, up to 144MHz system clock frequency;
 - Single-cycle multiplication and hardware division;
 - 64KB SRAM, 128KB Flash;
-- Supply voltage: 2.5V/3.3V. GPIO unit is supplied independently;
+- Supply voltage: 2.5V/3.6V. GPIO unit is supplied independently;
 - Low-power modes: sleep/stop/standby;
 - Bluetooth Low Energy 5.3;
 - 10M Ethernet controller (MAC+PHY);
