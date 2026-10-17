@@ -48,8 +48,6 @@ if(PROJECT_IS_TOP_LEVEL)
 	include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${MCU}.cmake)
 endif()
 
-#set(sdk_path "${CMAKE_CURRENT_SOURCE_DIR}/SRC")
-
 message(VERBOSE "Building ${PROJECT_NAME} for ${MCU}")
 
 # This is the manufacturer provided HAL.

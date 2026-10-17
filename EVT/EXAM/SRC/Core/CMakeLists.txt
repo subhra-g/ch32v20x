@@ -21,7 +21,7 @@ target_include_directories(${lib}
 )
 
 # Processor Arch related
-target_compile_options(${lib} PUBLIC -msave-restore) # -mno-save-restore
+target_compile_options(${lib} PUBLIC -msave-restore)
 
 # Optimization. Intentionally kept private.
 target_compile_options(${lib} PRIVATE -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common)
