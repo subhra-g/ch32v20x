@@ -23,6 +23,8 @@ target_compile_options(${lib} PRIVATE -msmall-data-limit=8)
 
 # Linker options
 target_link_options(${lib} PUBLIC -msave-restore)
+# This is the startup. So, do not use standard system startup files when linking.
+target_link_options(${lib} PUBLIC -nostartfiles)
 #target_link_options(${lib} PUBLIC -Xlinker --gc-sections)
 #ToDo: This assembly file expect a function 'SystemInit'. It doesn't create problem durinng compile
 #      time, rather it causes linker error. How to solve it?
@@ -48,6 +50,8 @@ target_sources(${lib}
 	# $<INSTALL_INTERFACE:startup/ch32v20x/startup_ch32v20x_D8.S> # For CH32V203RB
 	# $<INSTALL_INTERFACE:startup/ch32v20x/startup_ch32v20x_D8W.S> # For CH32V208x
 )
+# This is the startup. So, do not use standard system startup files when linking.
+target_link_options(${lib} INTERFACE -nostartfiles)
 set_target_properties(${lib} PROPERTIES FOLDER "${PROJECT_NAME}/Debug")
 set_target_properties(${lib} PROPERTIES FOLDER "${PROJECT_NAME}")
 add_library(ch32v20x::${lib} ALIAS ${lib})
