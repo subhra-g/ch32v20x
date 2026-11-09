@@ -35,6 +35,7 @@ foreach(uart compile_opt IN ZIP_LISTS uart_options compile_options)
 	target_compile_definitions(${lib} PUBLIC DEBUG=${compile_opt})
 	# Processor Arch related
 	target_compile_options(${lib} PUBLIC -msave-restore)
+	target_compile_definitions(${lib} PUBLIC ${MCU_FAMILY} ${MCU_CLASS_FULL_NAME})
 	# Optimization
 	target_compile_options(${lib} PRIVATE -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common)
 	target_compile_options(${lib} PRIVATE -msmall-data-limit=8)
@@ -84,9 +85,10 @@ target_include_directories(${lib}
 	$<INSTALL_INTERFACE:include/>
 	$<INSTALL_INTERFACE:include/ch32v20x/debug>
 )
-# Processor Arch related
 target_compile_definitions(${lib} PUBLIC SDI_PRINT=SDI_PR_OPEN)
+# Processor Arch related
 target_compile_options(${lib} PUBLIC -msave-restore)
+target_compile_definitions(${lib} PUBLIC ${MCU_FAMILY} ${MCU_CLASS_FULL_NAME})
 # Optimization
 target_compile_options(${lib} PRIVATE -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common)
 target_compile_options(${lib} PUBLIC -msmall-data-limit=8)

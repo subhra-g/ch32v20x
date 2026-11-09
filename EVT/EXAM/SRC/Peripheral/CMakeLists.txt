@@ -84,6 +84,7 @@ target_include_directories(${lib}
 )
 # Processor Arch related
 target_compile_options(${lib} PUBLIC -msave-restore)
+target_compile_definitions(${lib} PUBLIC ${MCU_FAMILY} ${MCU_CLASS_FULL_NAME})
 # Optimization. Intentionally kept private.
 target_compile_options(${lib} PRIVATE -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common)
 target_compile_options(${lib} PRIVATE -msmall-data-limit=8)

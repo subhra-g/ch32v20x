@@ -131,9 +131,9 @@ list(APPEND peripheral_inc
 	${PROJECT_SOURCE_DIR}/EVT/EXAM/SRC/Peripheral/inc/ch32v20x_conf.h
 )
 install(FILES ${peripheral_inc} DESTINATION include/ch32v20x/peripheral)
-# ToDo: CH32V203F8 is default in the linker and startup script. For other MCUs, it needs to be processed
+install(FILES ${PROJECT_SOURCE_DIR}/EVT/EXAM/SRC/Startup/${startup_file_name} DESTINATION startup/ch32v20x)
+# ToDo: CH32V203F8 is default in the linker script. For other MCUs, it needs to be processed
 #       (uncomment relevant section, comment/remove irrelevant sections). But for now, it is fine since I don't
 #       have any of the other MCUs.
-install(FILES ${PROJECT_SOURCE_DIR}/EVT/EXAM/SRC/Startup/startup_ch32v20x_D6.S DESTINATION startup/ch32v20x)# RENAME ch32v006.S)
 install(FILES ${PROJECT_SOURCE_DIR}/EVT/EXAM/SRC/Ld/Link.ld DESTINATION ld/ch32v20x RENAME ch32v203c8.ld)
 install(FILES ${PROJECT_SOURCE_DIR}/EVT/EXAM/SRC/Targets.md DESTINATION docs RENAME ch32v20x-Targets.md)

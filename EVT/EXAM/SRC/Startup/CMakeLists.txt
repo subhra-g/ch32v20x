@@ -1,17 +1,21 @@
 cmake_minimum_required(VERSION 3.23)
 
+# Check if the startup file exists or not.
+if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${startup_file_name})
+	message(FATAL_ERROR "Deduced startup file name ${startup_file_name} doesn't exit in ${CMAKE_CURRENT_SOURCE_DIR}")
+endif()
+
 set(lib startupLib)
 
 add_library(${lib} STATIC)
-
-# TODO: startup_ch32v20x_D8.S(CH32V203RB) and startup_ch32v20x_D8W.S(CH32V208)
 target_sources(${lib}
 	PRIVATE
-	"${CMAKE_CURRENT_SOURCE_DIR}/startup_ch32v20x_D6.S"
+	"${CMAKE_CURRENT_SOURCE_DIR}/${startup_file_name}"
 )
 
 # Processor Arch related
 target_compile_options(${lib} PUBLIC -msave-restore)
+target_compile_definitions(${lib} PUBLIC ${MCU_FAMILY} ${MCU_CLASS_FULL_NAME})
 
 # Optimization. Intentionally kept private.
 target_compile_options(${lib} PRIVATE -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common)
@@ -40,16 +44,11 @@ set(lib startup)
 add_library(${lib} INTERFACE)
 target_sources(${lib}
 	INTERFACE
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/startup_ch32v20x_D6.S>  # For CH32V203F6, CH32V203F8, CH32V203G6, CH32V203G8, CH32V203K8, CH32V203C6, CH32V203C8, CH32V203G8
-	# ToDo: Incorporate followings.
-	# $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/startup_ch32v20x_D8.S>  # For CH32V203RB
-	# $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/startup_ch32v20x_D8W.S> # For CH32V208x
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${startup_file_name}>
 	# These startup script needs to installed in 'startup/ch32v20x'
-	$<INSTALL_INTERFACE:startup/ch32v20x/startup_ch32v20x_D6.S> # For CH32V203F6, CH32V203F8, CH32V203G6, CH32V203G8, CH32V203K8, CH32V203C6, CH32V203C8, CH32V203G8
-	# ToDo: Incorporate followings.
-	# $<INSTALL_INTERFACE:startup/ch32v20x/startup_ch32v20x_D8.S> # For CH32V203RB
-	# $<INSTALL_INTERFACE:startup/ch32v20x/startup_ch32v20x_D8W.S> # For CH32V208x
+	$<INSTALL_INTERFACE:startup/ch32v20x/${startup_file_name}>
 )
+target_compile_definitions(${lib} PUBLIC ${MCU_FAMILY} ${MCU_CLASS_FULL_NAME})
 # This is the startup. So, do not use standard system startup files when linking.
 target_link_options(${lib} INTERFACE -nostartfiles)
 set_target_properties(${lib} PROPERTIES FOLDER "${PROJECT_NAME}/Debug")

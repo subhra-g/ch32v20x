@@ -1,1 +1,27 @@
+# This SDK supports only CH32V203 and CH32V208 MCUs
+set(MCU_FAMILY CH32V20x) # Includes CH32V203, CH32V208
+
+# Detect MCU Classification
+# From reference manual (CH32FV2x_V3xRM.PDF)
+# CH32V20x_D6: CH32V203F6, CH32V203G6, CH32V203F8, CH32V203G8, CH32V203K8, CH32V203C6 and CH32V203C8.
+# CH32V20x_D8: CH32V203RB.
+# CH32V20x_D8W: CH32V208GB, CH32V208CB, CH32V208RB and CH32V208WB.
+if(${MCU} MATCHES "^CH32V203[FGC][68]")
+	set(MCU_CLASS D6)
+elseif(${MCU} MATCHES "^CH32V203K8")
+	set(MCU_CLASS D6)
+elseif(${MCU} MATCHES "^CH32V203RB")
+	set(MCU_CLASS D8)
+elseif(${MCU} MATCHES "^CH32V208[GCRW]B")
+	set(MCU_CLASS D8W)
+else()
+	message(FATAL_ERROR "Invalid MCU ${MCU}")
+endif()
+message(STATUS "MCU: ${MCU}, Family: ${MCU_FAMILY}, Class: ${MCU_CLASS}")
+
+set(MCU_CLASS_FULL_NAME "${MCU_FAMILY}_${MCU_CLASS}")
+string(TOLOWER ${MCU_FAMILY} MCU_FAMILY_SMALL_CASE)
+set(startup_file_name "startup_${MCU_FAMILY_SMALL_CASE}_${MCU_CLASS}.S")
+message(VERBOSE "Setting startup file to ${startup_file_name}")
+
 include("${CMAKE_CURRENT_LIST_DIR}/ch32v20xhalTargets.cmake")
