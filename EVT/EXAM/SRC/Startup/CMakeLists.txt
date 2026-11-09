@@ -48,7 +48,7 @@ target_sources(${lib}
 	# These startup script needs to installed in 'startup/ch32v20x'
 	$<INSTALL_INTERFACE:startup/ch32v20x/${startup_file_name}>
 )
-target_compile_definitions(${lib} PUBLIC ${MCU_FAMILY} ${MCU_CLASS_FULL_NAME})
+target_compile_definitions(${lib} INTERFACE ${MCU_FAMILY} ${MCU_CLASS_FULL_NAME})
 # This is the startup. So, do not use standard system startup files when linking.
 target_link_options(${lib} INTERFACE -nostartfiles)
 set_target_properties(${lib} PROPERTIES FOLDER "${PROJECT_NAME}/Debug")
